@@ -37,5 +37,18 @@ namespace FundooNotes.Controllers
                 return BadRequest(new ResponseModel<UserEntity> { Success = false, Message = "Registration Failed", Data = result });
             }
         }
+
+        [HttpPost]
+        [Route("Login")]
+
+        public IActionResult Login(LoginModel loginmodel) {
+            var result = userManager.Login(loginmodel);
+            if (result != null)
+            {
+                return Ok(new ResponseModel<string> { Success = true, Message = "Login Successfull", Data = result });
+            }
+            return BadRequest(new ResponseModel<string> { Success = false, Message = "Login Failed", Data = result });
+        }
+
     }
 }

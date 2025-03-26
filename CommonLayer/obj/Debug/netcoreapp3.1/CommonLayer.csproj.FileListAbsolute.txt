@@ -1,0 +1,9 @@
+D:\Access Meditech BridgeLabz\Fundoo Notes App\CommonLayer\bin\Debug\netcoreapp3.1\CommonLayer.deps.json
+D:\Access Meditech BridgeLabz\Fundoo Notes App\CommonLayer\bin\Debug\netcoreapp3.1\CommonLayer.dll
+D:\Access Meditech BridgeLabz\Fundoo Notes App\CommonLayer\bin\Debug\netcoreapp3.1\CommonLayer.pdb
+D:\Access Meditech BridgeLabz\Fundoo Notes App\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Access Meditech BridgeLabz\Fundoo Notes App\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.AssemblyInfoInputs.cache
+D:\Access Meditech BridgeLabz\Fundoo Notes App\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.AssemblyInfo.cs
+D:\Access Meditech BridgeLabz\Fundoo Notes App\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.csproj.CoreCompileInputs.cache
+D:\Access Meditech BridgeLabz\Fundoo Notes App\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.dll
+D:\Access Meditech BridgeLabz\Fundoo Notes App\CommonLayer\obj\Debug\netcoreapp3.1\CommonLayer.pdb
