@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using CommonLayer.Models;
 using ManagerLayer.Interfaces;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interfaces;
 
@@ -29,6 +30,16 @@ namespace ManagerLayer.Services
         public string Login(LoginModel loginmodel)
         {
             return userRepo.Login(loginmodel);
+        }
+
+        public ForgetPasswordModel ForgetPassword(string Email)
+        {
+            return userRepo.ForgetPassword(Email);
+        }
+
+        public bool ResetPassword(string Email, ResetPasswordModel resetpasswordmodel)
+        {
+            return userRepo.ResetPassword(Email, resetpasswordmodel);
         }
     }
 }

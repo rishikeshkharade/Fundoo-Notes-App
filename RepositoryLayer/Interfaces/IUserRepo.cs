@@ -10,7 +10,8 @@ namespace RepositoryLayer.Interfaces
     {
         public UserEntity Register(RegisterModel model);
         public bool EmailChecker(string email);
-
         public string Login(LoginModel model);
+        public ForgetPasswordModel ForgetPassword(string Email);
+        public bool ResetPassword(string Email, ResetPasswordModel resetpasswordmodel);
     }
 }
