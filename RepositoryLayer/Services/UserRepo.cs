@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading;
 using CommonLayer.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interfaces;
+using RepositoryLayer.Migrations;
 
 namespace RepositoryLayer.Services
 {
@@ -75,6 +77,31 @@ namespace RepositoryLayer.Services
             return null;
         }
 
+        public ForgetPasswordModel ForgetPassword(string Email)
+        {
+            UserEntity User = context.Users.ToList().Find(user => user.Email == Email);
+            ForgetPasswordModel forgetPassword = new ForgetPasswordModel();
+            forgetPassword.Email = User.Email;
+            forgetPassword.UserId = User.UserId;
+            forgetPassword.Token = GenerateToken(User.Email, User.UserId);
+            return forgetPassword;
+        }
+
+        public bool ResetPassword(string Email, ResetPasswordModel resetpasswordmodel)
+        {
+            UserEntity userEntity = context.Users.ToList().Find(user => user.Email == Email);
+
+            if (EmailChecker(userEntity.Email))
+            {
+                userEntity.Password = EncodePasswordToBased(resetpasswordmodel.ConfirmPassword);
+                context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private string GenerateToken(string email, int userId)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
