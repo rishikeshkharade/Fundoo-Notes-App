@@ -5,20 +5,34 @@ using CommonLayer.Models;
 using ManagerLayer.Interfaces;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interfaces;
-using RepositoryLayer.Services;
 
 namespace ManagerLayer.Services
 {
     public class NotesManager : INotesManager
     {
-        private readonly INotesRepo notesRepo;
-        public NotesManager(INotesRepo notesRepo)
+        private readonly INotesRepo notesrepo;
+        public NotesManager(INotesRepo notesrepo)
         {
-            this.notesRepo = notesRepo;
+            this.notesrepo = notesrepo;
         }
+
         public NotesEntity CreateNote(int UserId, NotesModel notesModel)
         {
-            return notesRepo.CreateNote(UserId, notesModel);
+            return notesrepo.CreateNote(UserId, notesModel);
+        }
+
+        public List<NotesEntity> GetNotes()
+        {
+            return notesrepo.GetNotes();
+        }
+
+        public List<NotesEntity> GetingNotesByTitleAndDescription(string title, string description)
+        {
+               return notesrepo.GetingNotesByTitleAndDescription(title, description);
+        }
+        public int CountOfNotes(int UserId)
+        {
+            return notesrepo.CountOfNotes(UserId);
         }
     }
 }
