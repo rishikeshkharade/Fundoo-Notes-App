@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
@@ -36,7 +37,7 @@ namespace RepositoryLayer.Services
                 string encodedData = Convert.ToBase64String(encData_byte);
                 return encodedData;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Error in base64Encode" + ex.Message);
             }
@@ -59,7 +60,7 @@ namespace RepositoryLayer.Services
         public bool EmailChecker(string email)
         {
             var result = this.context.Users.FirstOrDefault(x => x.Email == email);
-            if(result == null)
+            if (result == null)
             {
                 return false;
             }
@@ -68,7 +69,7 @@ namespace RepositoryLayer.Services
 
         public string Login(LoginModel loginmodel)
         {
-           var checkUser = this.context.Users.FirstOrDefault(q => q.Email == loginmodel.Email && q.Password == EncodePasswordToBased(loginmodel.Password)); 
+            var checkUser = this.context.Users.FirstOrDefault(q => q.Email == loginmodel.Email && q.Password == EncodePasswordToBased(loginmodel.Password));
             if (checkUser != null)
             {
                 var token = GenerateToken(checkUser.Email, checkUser.UserId);
@@ -122,5 +123,74 @@ namespace RepositoryLayer.Services
 
         }
 
+        public List<UserEntity> GetUsers()
+        {
+            List<UserEntity> userEntities = context.Users.ToList();
+            if (userEntities != null)
+            {
+                return userEntities;
+            }
+            return null;
+
+        }
+
+        public UserEntity GetUserById(int Userid)
+        {
+            UserEntity userEntity = context.Users.FirstOrDefault(id => id.UserId == Userid);
+            if (userEntity == null)
+            {
+                return null;
+            }
+            else
+            {
+                return userEntity;
+            }
+        }
+
+        public List<UserEntity> GetAUsers()
+        {
+            List<UserEntity> user = context.Users.Where(user => user.FirstName.StartsWith("A")).ToList();
+            return user;
+        }
+
+        public int UserCount()
+        {
+            int count = context.Users.Count();
+            return count;
+        }
+
+        public List<UserEntity> AscendingOrder()
+        {
+            List<UserEntity> userEntities = context.Users.OrderBy(n => n.FirstName).ToList();
+            return userEntities;
+        }
+
+        public List<UserEntity> DescendingOrder()
+        {
+            List<UserEntity> userEntities = context.Users.OrderByDescending(n => n.FirstName).ToList();
+            return userEntities;
+        }
+
+        public int AverageAge()
+        {
+            var averageAge = context.Users.Average(user => DateTime.Today.Year - user.DOB.Year - (user.DOB.Date > DateTime.Today.AddYears(-1) ? 1 : 0));
+            return (int)averageAge;
+        }
+
+        public int YougestUserAge()
+        {
+            var youngestAge = context.Users
+        .Select(user => DateTime.Today.Year - user.DOB.Year - (user.DOB > DateTime.Today.AddYears(-1) ? 1 : 0))
+        .Min();
+            return youngestAge;
+        }
+
+        public int OldestAge()
+        {
+            var oldestAge = context.Users
+        .Select(user => DateTime.Today.Year - user.DOB.Year - (user.DOB > DateTime.Today.AddYears(-1) ? 1 : 0))
+        .Max();
+            return oldestAge;
+        }
     }
 }
