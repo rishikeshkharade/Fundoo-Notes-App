@@ -29,5 +29,6 @@ namespace RepositoryLayer.Entity
 
         [JsonIgnore]
         public virtual UserEntity NotesUser { get; set; }
+        public virtual ICollection<LabelNoteEntity> LabelNotes { get; set; }
     }
 }
